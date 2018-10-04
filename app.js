@@ -12,8 +12,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(router);
 
 mongoose.Promise = global.Promise;
+mongoose.set('useFindAndModify', false); // 더이상 쓰이지 않는 뭐시기 나오면 이거 추가하면 됨
 
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true }) // { useNewUrlParser: true } 뭔가 에러날 때 이거 추가하면 됨
     .then(() => console.log('successfully connnected to mongodb!'))
     .catch(e => console.log(e))
 
@@ -58,13 +59,12 @@ router.get('/del/:id', (req, res) => {
         if (err)
             return res.status(500).send('del fail');
         res.status(200).redirect('/');
-
     });
 });
 
-router.delete('/de', (req, res) => {
-    res.send('delete!!!');
-});
+// router.delete('/de', (req, res) => {
+//     res.send('delete!!!');
+// });
 
 // User 수정
 router.post('/update/:id', (req, res) => {

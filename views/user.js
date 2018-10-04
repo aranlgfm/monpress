@@ -5,5 +5,5 @@ var UserSchema = new mongoose.Schema({
     username: String
 })
 
-// mongoo.model('User', UserSchema);
-module.exports = mongoose.model('User', UserSchema);
+userModel = mongoose.model('User', UserSchema);
+module.exports = userModel;
